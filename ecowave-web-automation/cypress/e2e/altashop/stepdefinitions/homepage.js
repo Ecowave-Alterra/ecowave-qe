@@ -6,6 +6,9 @@ import LandingPageNavigation from "../navigation/landing";
 
 const landingPageNav= new LandingPageNavigation();
 
+Given("I open altashop homepage", ()=>{
+    landingPageNav.openPage();
+})
 When("I open ecoshop homepage", ()=>{
     landingPageNav.openPage();
 })
