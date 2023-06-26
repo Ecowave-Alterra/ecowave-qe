@@ -7,48 +7,57 @@ import test.automation.pageobject.BasePageObject;
 
 public class LoginScreen extends BasePageObject {
 
+    private By profileButton() {
+        return MobileBy.AccessibilityId("Saya");
+    }
     private By loginButton() {
-        return MobileBy.id("appCompatButtonLogin");
+        return MobileBy.AccessibilityId("Login");
+    }
+
+    private By submitLoginButton() {
+        return MobileBy.xpath("//android.widget.Button[@content-desc='Login']");
+    }
+
+    private By emailFieldAfterClick() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[1]");
     }
 
     private By emailField() {
-        return MobileBy.id("textInputEditTextEmail");
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]");
     }
 
     private By passwordField() {
-        return MobileBy.id("textInputEditTextPassword");
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]");
     }
-    private By toastMessage() {
-        return MobileBy.id("snackbar_text");
-    }
-    private By emailGreeting() {
-        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView[3]");
+
+    private By passwordFieldAfterClick() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[2]");
     }
 
     @Step
-    public boolean isOnPage() {
-        return waitUntilPresence(loginButton()).isDisplayed();
-    }
-    @Step
-    public void inputEmail(String email) {
-        onType(emailField(), email);
+    public void tapProfileButton() {
+        onClick(profileButton());
     }
 
     @Step
-    public void inputPassword(String password) {
-        onType(passwordField(), password);
+    public void tapSubmitLoginButton() {
+        onClick(submitLoginButton());
     }
+
     @Step
     public void tapLoginButton() {
         onClick(loginButton());
     }
 
     @Step
-    public String getToastMessage() {
-        return waitUntilVisible(toastMessage()).getText();
+    public void inputEmailField(String email) {
+        onClick(emailField());
+        onType(emailFieldAfterClick(), email);
     }
+
     @Step
-    public String getEmailGreeting() {
-        return waitUntilVisible(emailGreeting()).getText();
+    public void inputPasswordField(String password) {
+        onClick(passwordFieldAfterClick());
+        onType(passwordFieldAfterClick(), password);
     }
 }

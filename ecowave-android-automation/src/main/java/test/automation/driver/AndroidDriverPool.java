@@ -25,7 +25,7 @@ public class AndroidDriverPool {
 //        caps.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, configProperties.getAndroid().getAppActivity());
         caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 100);
         caps.setCapability(MobileCapabilityType.NO_RESET, true);
-        caps.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + File.separator + "app/app.apk");
+        caps.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + File.separator + "app/ecowave-v1.0.2.apk");
 
         try {
             driver = new AndroidDriver<AndroidElement>(new URL(appiumUrl), caps);

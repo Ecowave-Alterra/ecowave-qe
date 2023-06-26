@@ -1,80 +1,69 @@
 package test.automation.stepdefinitions;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
-import test.automation.pages.LoginScreen;
 import test.automation.pages.RegistrationScreen;
 
 public class RegistrationSteps {
     @Steps
-    RegistrationScreen registrationScreen;
+    RegistrationScreen registrationScreen = new RegistrationScreen();
 
-    @And("android user fill valid random name")
-    public void androidUserFillValidName() {
-        boolean useNumbers=false;
-        boolean useLetter=true;
-        String randomString= RandomStringUtils.random(14,useLetter,useNumbers);
-        registrationScreen.inputName(randomString);
+    @Given("user on landing screen")
+    public void userOnLandingScreen() {
+        Assert.assertTrue(registrationScreen.isHomeButtonExist());
     }
 
-    @And("android user fill valid non-registered email")
-    public String androidUserFillValidNonRegisteredEmail() {
-        boolean useNumbers=true;
-        boolean useLetter=true;
-        String randomString= RandomStringUtils.random(14,useLetter,useNumbers);
-        String email = randomString+"@gmail.com";
-        registrationScreen.inputEmail(email);
-        return email;
+
+    @When("user select profile page")
+    public void userSelectProfilePage() {
+        registrationScreen.tapProfileButton();
     }
 
-    @And("android user fill valid password as: {string}")
-    public void androidUserFillValidPassword(String password) {
-        registrationScreen.inputPassword(password);
-    }
-
-    @And("android user fill valid password confirmation {string}")
-    public void androidUserFillValidPasswordConfirmation(String password) {
-        registrationScreen.inputPasswordConfirmation(password);
-    }
-
-    @And("android user press register")
-    public void androidUserPressRegister() {
+    @And("user select register option")
+    public void userSelectRegisterOption() {
         registrationScreen.tapRegisterButton();
     }
 
-    @Then("android user see {string} message on registration page")
-    public void androidUserSeeMessageOnRegistrationPage(String expected) {
-        String actual=registrationScreen.waitSnackbarText();
-        Assert.assertEquals(actual,expected);
-    }
-    @When("android user select register hyperlink")
-    public void androidUserSelectRegisterHyperlink() {
-        registrationScreen.tapRegisterLink();
+    @And("user fill valid name as: {string}")
+    public void userFillValidNameAs(String name) {
+        String nameInput = name.equals("randomized name")? RandomStringUtils.random(10,true,false): name;
+        registrationScreen.inputNameField(nameInput);
     }
 
-    @And("android user fill invalid email: {string}")
-    public void androidUserFillInvalidEmail(String email) {
-        registrationScreen.inputEmail(email);
+    @And("user fill valid non-registered email as: {string}")
+    public void userFillValidNonRegisteredEmailAs(String email) {
+        String emailInput = email.equals("randomized email")? RandomStringUtils.random(10,true,true)+"@gmail.com": email;
+        registrationScreen.inputEmailField(emailInput);
     }
 
-    @Then("android user see {string} message below email form")
-    public void androidUserSeeMessageBelowEmailForm(String message) {
-        String actual=registrationScreen.waitEmailError();
-        Assert.assertEquals(actual,message);
+    @And("user fill valid username as: {string}")
+    public void userFillValidUsernameAs(String username) {
+        String userNameInput = username.equals("randomized username")? RandomStringUtils.random(10,true,true): username;
+        registrationScreen.inputUserNameField(userNameInput);
     }
 
-    @And("android user fill non-matching password confirmation {string}")
-    public void androidUserFillnonmatchingPasswordConfirmation(String wrongPassword) {
-        registrationScreen.inputPasswordConfirmation(wrongPassword);
+    @And("user fill valid phone number as: {string}")
+    public void userFillValidPhoneNumberAs(String phoneNumber) {
+        String phoneNumberInput = phoneNumber.equals("randomized phone number")? "08"+RandomStringUtils.randomNumeric(9): phoneNumber;
+        registrationScreen.inputPhoneNumberField(phoneNumberInput);
     }
 
-    @Then("android user see {string} message below password form")
-    public void androidUserSeeMessageBelowPasswordForm(String message) {
-        String actual=registrationScreen.waitPasswordError();
-        Assert.assertEquals(actual,message);
+    @And("user fill valid password as: {string}")
+    public void userFillValidPasswordAs(String password) {
+        registrationScreen.inputPasswordField(password);
+    }
+
+    @And("user press submit register button")
+    public void userPressRegister() {
+        registrationScreen.tapSubmitRegisterButton();
+    }
+
+    @Then("user see {string} message on registration page")
+    public void userSeeMessageOnRegistrationPage(String message) {
     }
 }
