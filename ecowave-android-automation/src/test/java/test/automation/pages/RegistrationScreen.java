@@ -6,65 +6,90 @@ import org.openqa.selenium.By;
 import test.automation.pageobject.BasePageObject;
 
 public class RegistrationScreen extends BasePageObject {
-    private By registerLink() {
-        return MobileBy.id("textViewLinkRegister");
+
+    private By profileButton() {
+        return MobileBy.AccessibilityId("Saya");
     }
-    private By emailField() {
-        return MobileBy.id("textInputEditTextEmail");
+
+    private By homeButton() {
+        return MobileBy.AccessibilityId("Beranda");
     }
-    private By passwordField() {
-        return MobileBy.id("textInputEditTextPassword");
-    }
-    private By nameForm() {
-        return MobileBy.id("textInputEditTextName");
-    }
-    private By passWordConfirm() {
-        return MobileBy.id("textInputEditTextConfirmPassword");
-    }
+
     private By registerButton() {
-        return MobileBy.id("appCompatButtonRegister");
+        return MobileBy.xpath("//android.widget.Button[@content-desc='Register']");
     }
-    private By snackBarText() {
-        return MobileBy.id("snackbar_text");
+
+    private By submitRegisterButton() {
+        return MobileBy.AccessibilityId("Register");
     }
-    private By emailErrorMessage() {
-        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.ScrollView/android.support.v7.widget.LinearLayoutCompat/TextInputLayout[2]/android.widget.LinearLayout/android.widget.TextView");
-    }
-    private By passwordErrorMessage() {
-        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.ScrollView/android.support.v7.widget.LinearLayoutCompat/TextInputLayout[4]/android.widget.LinearLayout/android.widget.TextView");
-    }
+
     @Step
-    public void inputName(String name) {
-        onType(nameForm(), name);
+    public void tapProfileButton() {
+        onClick(profileButton());
     }
+
     @Step
-    public void inputEmail(String email) {
-        onType(emailField(), email);
+    public void tapSubmitRegisterButton() {
+        onClick(submitRegisterButton());
     }
+
     @Step
-    public void inputPassword(String password) {
-        onType(passwordField(), password);
+    public boolean isHomeButtonExist() {
+        return waitUntilVisible(homeButton()).isDisplayed();
     }
-    @Step
-    public void inputPasswordConfirmation(String password) {
-        onType(passWordConfirm(), password);
-    }
+
     @Step
     public void tapRegisterButton() {
         onClick(registerButton());
     }
+
+    private By nameField() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[1]");
+    }
+
+    private By emailField() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[2]");
+    }
+
+    private By userNameField() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[3]");
+    }
+
+    private By phoneNumberField() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[4]");
+    }
+
+    private By passwordField() {
+        return MobileBy.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[5]");
+    }
+
     @Step
-    public String waitSnackbarText() {
-        return waitUntilVisible(snackBarText()).getText();
+    public void inputNameField(String name) {
+        onClick(nameField());
+        onType(nameField(), name);
     }
-    public String waitEmailError() {
-        return waitUntilVisible(emailErrorMessage()).getText();
-    }
-    public String waitPasswordError() {
-        return waitUntilVisible(passwordErrorMessage()).getText();
-    }
+
     @Step
-    public void tapRegisterLink() {
-        onClick(registerLink());
+    public void inputEmailField(String email) {
+        onClick(emailField());
+        onType(emailField(), email);
+    }
+
+    @Step
+    public void inputUserNameField(String userName) {
+        onClick(userNameField());
+        onType(userNameField(), userName);
+    }
+
+    @Step
+    public void inputPhoneNumberField(String phoneNumber) {
+        onClick(phoneNumberField());
+        onType(phoneNumberField(), phoneNumber);
+    }
+
+    @Step
+    public void inputPasswordField(String password) {
+        onClick(passwordField());
+        onType(passwordField(), password);
     }
 }

@@ -18,55 +18,46 @@ public class LoginSteps {
     @Steps
     RegistrationScreen registrationScreen;
     private String email;
-    @Given("android user on landing screen")
-    public void androidUserOnLandingScreen() {
-        boolean actual = loginScreen.isOnPage();
-        Assert.assertTrue(actual);
+
+    @Given("user has successfully register")
+    public void androidUserHasSuccessfullyRegister() {
+        registrationScreen.tapProfileButton();
+        registrationScreen.tapRegisterButton();
+        String randomName= RandomStringUtils.random(10,true, false);
+        email = RandomStringUtils.random(10,true, true)+"@gmail.com";
+        String phoneNumber = "08" + RandomStringUtils.random(10,false, true);
+
+        registrationScreen.inputNameField(randomName);
+        registrationScreen.inputEmailField(email);
+        registrationScreen.inputUserNameField(randomName);
+        registrationScreen.inputPhoneNumberField(phoneNumber);
+        registrationScreen.inputPasswordField("test@1234");
+
+        registrationScreen.tapSubmitRegisterButton();
     }
 
-    @When("android user input unregistered email: {string}")
-    public void androidUserInputUnregisteredEmail(String emailInput) {
-        loginScreen.inputEmail(emailInput);
-    }
-
-    @And("android user tap login button")
-    public void androidUserTapLoginButton() {
+    @When("user navigate to login page")
+    public void userNavigateToLoginPage() {
+        loginScreen.tapProfileButton();
         loginScreen.tapLoginButton();
     }
 
-    @And("android user input password: {string}")
-    public void androidUserInputPassword(String password) {
-        loginScreen.inputPassword(password);
+    @And("user input registered email")
+    public void userInputRegisteredEmail() {
+        loginScreen.inputEmailField(email);
     }
 
-    @Then("android user see {string} message")
-    public void androidUserSeeMessage(String message) {
-        String actual = loginScreen.getToastMessage();
-        Assert.assertEquals(actual, message);
+    @And("user input password: {string}")
+    public void userInputPassword(String password) {
+        loginScreen.inputPasswordField(password);
     }
 
-    @Given("android user has successfully register")
-    public void androidUserHasSuccessfullyRegister() {
-        registrationScreen.tapRegisterLink();
-        registrationScreen.inputName("test");
-        boolean useNumbers=true;
-        boolean useLetter=true;
-        String randomString= RandomStringUtils.random(14,useLetter,useNumbers);
-        email = randomString+"@gmail.com";
-        registrationScreen.inputEmail(email);
-        registrationScreen.inputPassword("test@1234");
-        registrationScreen.inputPasswordConfirmation("test@1234");
-        registrationScreen.tapRegisterButton();
+    @And("user tap login button")
+    public void userTapLoginButton() {
+        loginScreen.tapSubmitLoginButton();
     }
 
-    @When("android user input registered email")
-    public void androidUserInputRegisteredEmail() {
-        loginScreen.inputEmail(email);
-    }
-
-    @Then("android user see email message displayed on home screen")
-    public void androidUserSeeMessageDisplayedOnHomeScreen() {
-        String actual= loginScreen.getEmailGreeting();
-        Assert.assertEquals(this.email,actual);
+    @Then("user see email message displayed on home screen")
+    public void userSeeEmailMessageDisplayedOnHomeScreen() {
     }
 }

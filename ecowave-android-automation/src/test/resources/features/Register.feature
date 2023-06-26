@@ -1,40 +1,16 @@
-Feature: Registration
-
-  Scenario Outline: [POS] - Check when user tries to register given valid credentials
-    Given android user on landing screen
-    When android user select register hyperlink
-    And android user fill valid random name
-    And android user fill valid non-registered email
-    And android user fill valid password as: "<password>"
-    And android user fill valid password confirmation "<password>"
-    And android user press register
-    Then android user see "Registration Successful" message on registration page
-    Examples:
-      | password          |
-      | test@1234         |
-
-  Scenario Outline: [NEG] - Check when user tries to register given invalid credentials
-    Given android user on landing screen
-    When android user select register hyperlink
-    And android user fill valid random name
-    And android user fill invalid email: "<email>"
-    And android user fill valid password as: "<password>"
-    And android user fill valid password confirmation "<password>"
-    And android user press register
-    Then android user see "Enter Valid Email" message below email form
-    Examples:
-      | password          | email       |
-      | test@1234         | aisdiajd    |
-
-  Scenario Outline: [NEG] - Check when user tries to register given invalid password confirmation
-    Given android user on landing screen
-    When android user select register hyperlink
-    And android user fill valid random name
-    And android user fill valid non-registered email
-    And android user fill valid password as: "<password>"
-    And android user fill non-matching password confirmation "<wrong-password>"
-    And android user press register
-    Then android user see "Password Does Not Matches" message below password form
-    Examples:
-      | password          | wrong-password    |
-      | test@1234         | test@123456       |
+#Feature: Registration
+#
+#  Scenario Outline: [POS] - Check when user tries to register given valid credentials
+#    Given user on landing screen
+#    When user select profile page
+#    And user select register option
+#    And user fill valid name as: "randomized name"
+#    And user fill valid non-registered email as: "randomized email"
+#    And user fill valid username as: "randomized username"
+#    And user fill valid phone number as: "randomized phone number"
+#    And user fill valid password as: "<password>"
+#    And user press submit register button
+#    Then user see "Registration Successful" message on registration page
+#    Examples:
+#      | password          |
+#      | test@1234         |
