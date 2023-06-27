@@ -78,7 +78,7 @@ public class Category {
     @Step("I send PUT HTTP request category")
     public void sendPutHttpRequestCategory(){
         JSONObject requestBody = new JSONObject();
-        requestBody.put("Category", "Rubah");
+        requestBody.put("Category", "Ganti");
 
         SerenityRest.given().header("Authorization", token).header("Content-Type", "application/json").body(requestBody.toJSONString()).put(setPutEndpointCategory());
     }
@@ -107,7 +107,7 @@ public class Category {
 
     @Step("I set DELETE endpoints category")
     public String setDeleteEndpointCategory(){
-        return url + "/admin/products/category/18";
+        return url + "/admin/products/category/19";
     }
 
     @Step("I send DELETE HTTP request category")
