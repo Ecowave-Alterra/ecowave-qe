@@ -9,5 +9,8 @@
         <module name="ecowave-api-automation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MiniProjectApi" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
